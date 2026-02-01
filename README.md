@@ -24,19 +24,4 @@ Database
 MySQL 
 
 
-mock-test-app/
-│
-├── index.html          # Home / instructions page
-├── test.html           # Mock test page
-├── result.html         # Result page
-│
-├── css/
-│   └── styles.css
-│
-├── js/
-│   ├── questions.js    # Questions data
-│   ├── timer.js        # Timer logic
-│   ├── test.js         # Test logic
-│   └── result.js       # Evaluation logic
-│
-└── README.md
+Hosted using Railway
