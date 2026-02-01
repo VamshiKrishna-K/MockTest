@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Error</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center">
+
+    <div class="bg-white shadow-2xl rounded-2xl p-10 max-w-md w-full text-center">
+
+        <!-- Icon -->
+        <div class="flex justify-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 9v2m0 4h.01M5.5 19h13a2 2 0 001.7-3l-6.5-11a2 2 0 00-3.4 0l-6.5 11a2 2 0 001.7 3z"/>
+            </svg>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">
+            Exam Error Occurred
+        </h1>
+
+        <!-- Message -->
+        <p class="text-gray-600 mb-6">
+            Something went wrong while loading your exam.<br>
+            Please try again or contact the administrator.
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex gap-4 justify-center">
+            <a href="/"
+               class="px-6 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">
+                Go Home
+            </a>
+
+            <a href="javascript:location.reload()"
+               class="px-6 py-2 rounded-lg bg-gray-200 text-gray-800 font-semibold hover:bg-gray-300 transition">
+                Retry
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <p class="text-xs text-gray-400 mt-8">
+            Mock Test System • Secure Exam Environment
+        </p>
+    </div>
+
+</body>
+</html>

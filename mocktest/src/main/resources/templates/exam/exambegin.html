@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TG TET Mock Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-200 text-sm">
+
+<!-- ================= TOP BAR ================= -->
+<div class="bg-gray-800 text-white flex justify-between items-center px-4 py-2">
+    <div class="font-semibold" th:text="${examType}">TG TET Mock Test</div>
+    <div class="font-semibold">
+    Time Left :
+    <span id="timer" class="text-3xl font-bold">150:00</span>
+</div>
+
+</div>
+
+<!-- ================= MAIN LAYOUT ================= -->
+<div class="flex h-[calc(100vh-48px)]">
+
+    <!-- ================= QUESTION AREA ================= -->
+    <div class="flex-[3] bg-white border-r flex flex-col">
+
+        <!-- Question Header -->
+        <div class="border-b px-4 py-2 font-semibold">
+            <span id="questionNo"></span>
+        </div>
+
+        <!-- Question Body -->
+        <div class="p-6 flex-1 overflow-y-auto">
+
+            <!-- English -->
+            <p id="questionTextEn" class="font-semibold mb-1"></p>
+
+            <!-- Telugu -->
+            <p id="questionTextTe" class="text-gray-700 mb-6"></p>
+
+            <!-- Options -->
+            <div id="options" class="space-y-4"></div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="border-t px-4 py-3 flex justify-between">
+            <div class="flex gap-3">
+                <button onclick="markForReview()"
+                        class="border px-4 py-2 rounded hover:bg-gray-100">
+                    Mark for Review & Next
+                </button>
+
+                <button onclick="clearResponse()"
+                        class="border px-4 py-2 rounded hover:bg-gray-100">
+                    Clear Response
+                </button>
+            </div>
+
+            <button onclick="saveAndNext()"
+                    class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                Save & Next
+            </button>
+        </div>
+    </div>
+
+   <!-- ================= RIGHT PANEL ================= -->
+<div class="w-72 bg-sky-100 border-l flex flex-col h-full overflow-hidden">
+
+    <!-- Legend -->
+    <div class="p-4 text-xs space-y-2 border-b">
+        <div class="flex items-center gap-2">
+            <span class="w-4 h-4 bg-green-500 inline-block"></span> Answered
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-4 h-4 bg-gray-400 inline-block"></span> Not Answered
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-4 h-4 bg-purple-500 inline-block"></span> Marked for Review
+        </div>
+    </div>
+
+    <!-- Scrollable palette -->
+    <div class="flex-1 overflow-y-auto p-4">
+        <div class="font-semibold mb-2">Question Palette</div>
+        <div id="palette" class="grid grid-cols-4 gap-2"></div>
+    </div>
+
+    <!-- Fixed submit button -->
+    <div class="p-4 border-t">
+        <button onclick="submitExam()"
+                class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700">
+            Submit Exam
+        </button>
+    </div>
+
+</div>
+
+
+<!-- ================= BACKEND DATA ================= -->
+<script th:inline="javascript">
+/*<![CDATA[*/
+    var questions = /*[[${questions}]]*/ [];
+/*]]>*/
+</script>
+
+<!-- ================= CBT LOGIC ================= -->
+<script>
+    let currentIndex = 0;
+    let answers = {};
+    let status = new Array(questions.length).fill(0);
+
+    function renderQuestion() {
+        const q = questions[currentIndex];
+
+        document.getElementById("questionNo").innerText =
+            "Question No. " + (currentIndex + 1);
+
+        const enEl = document.getElementById("questionTextEn");
+        const teEl = document.getElementById("questionTextTe");
+
+        // Reset
+        enEl.style.display = "none";
+        teEl.style.display = "none";
+
+        const en = q.questionTextEn;
+        const te = q.questionTextTe;
+
+        // Conditional display
+        if (en && te) {
+            enEl.innerText = en;
+            teEl.innerText = te;
+            enEl.style.display = "block";
+            teEl.style.display = "block";
+        } else if (en) {
+            enEl.innerText = en;
+            enEl.style.display = "block";
+        } else if (te) {
+            teEl.innerText = te;
+            teEl.style.display = "block";
+        }
+
+        // Options
+        let html = "";
+        q.options.forEach(opt => {
+            const optEn = opt.optionTextEn;
+            const optTe = opt.optionTextTe;
+
+            html +=
+                '<label class="flex items-start gap-2 cursor-pointer">' +
+                '<input type="radio" name="answer" value="' + opt.optionId + '"' +
+                (answers[q.questionId] == opt.optionId ? ' checked' : '') +
+                '>' +
+                '<div>';
+
+            if (optEn && optTe) {
+                html += '<div>' + optEn + '</div>' +
+                        '<div class="text-gray-600 text-sm">' + optTe + '</div>';
+            } else if (optEn) {
+                html += '<div>' + optEn + '</div>';
+            } else if (optTe) {
+                html += '<div>' + optTe + '</div>';
+            }
+
+            html += '</div></label>';
+        });
+
+        document.getElementById("options").innerHTML = html;
+    }
+
+    function clearResponse() {
+        delete answers[questions[currentIndex].questionId];
+        status[currentIndex] = 0;
+        renderQuestion();
+        renderPalette();
+    }
+
+    function saveAndNext() {
+        const selected = document.querySelector("input[name='answer']:checked");
+        if (selected) {
+            answers[questions[currentIndex].questionId] = selected.value;
+            status[currentIndex] = 1;
+        }
+        nextQuestion();
+    }
+
+    function markForReview() {
+        const selected = document.querySelector("input[name='answer']:checked");
+        if (selected) {
+            answers[questions[currentIndex].questionId] = selected.value;
+        }
+        status[currentIndex] = 2;
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        if (currentIndex < questions.length - 1) {
+            currentIndex++;
+            renderQuestion();
+            renderPalette();
+        }
+    }
+
+    function jumpTo(i) {
+        currentIndex = i;
+        renderQuestion();
+    }
+
+    function renderPalette() {
+        let html = "";
+        status.forEach((s, i) => {
+            let color = "bg-gray-400";
+            if (s === 1) color = "bg-green-500";
+            if (s === 2) color = "bg-purple-500";
+
+            html +=
+                '<button class="' + color +
+                ' text-white py-2 rounded" onclick="jumpTo(' + i + ')">' +
+                (i + 1) + '</button>';
+        });
+        document.getElementById("palette").innerHTML = html;
+    }
+
+    // TIMER (150 min)
+    let remainingSeconds = 150 * 60;
+    setInterval(() => {
+        let min = Math.floor(remainingSeconds / 60);
+        let sec = remainingSeconds % 60;
+        document.getElementById("timer").innerText =
+            String(min).padStart(2, "0") + ":" +
+            String(sec).padStart(2, "0");
+        if (remainingSeconds <= 0) submitExam();
+        remainingSeconds--;
+    }, 1000);
+
+    function submitExam() {
+        fetch("/exam/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(answers)
+        }).then(() => window.location.href = "/exam/result");
+    }
+
+    // INITIAL LOAD
+    if (questions.length > 0) {
+        renderQuestion();
+        renderPalette();
+    }
+</script>
+
+</body>
+</html>

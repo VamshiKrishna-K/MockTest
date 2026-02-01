@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instructions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white font-sans">
+
+
+<!-- Header -->
+<div class="bg-cyan-100 px-4 py-2 text-lg font-bold border-b border-gray-300">
+    Instructions
+</div>
+
+<!-- Main container -->
+<div class="flex h-[calc(100vh-96px)]">
+
+    <!-- Instructions section -->
+    <div class="flex-[3] p-5 overflow-y-auto pb-20">
+
+        <h3 class="text-center text-lg font-semibold mb-4">
+            Please read the instructions carefully
+        </h3>
+
+        <p class="font-bold mb-2">General Instructions:</p>
+
+        <ol class="list-decimal pl-6 space-y-2 text-sm">
+            <li>Total duration of examination is <b>150 minutes</b>.</li>
+            <li>
+                The clock will be set at the server. The countdown timer will display
+                the remaining time. When the timer reaches zero, the examination will
+                end automatically.
+            </li>
+            <li>
+                The Question Palette displayed on the right side of screen will show
+                the status of each question using the following symbols:
+                <div class="mt-2 space-y-1">
+                    <div><b>1.</b> You have not visited the question yet.</div>
+                    <div><b>2.</b> You have not answered the question.</div>
+                    <div><b>3.</b> You have answered the question.</div>
+                    <div><b>4.</b> You have NOT answered the question, but marked for review.</div>
+                    <div><b>5.</b> Answered and Marked for Review will be evaluated.</div>
+                </div>
+            </li>
+            <li>The Marked for Review status indicates you want to revisit the question.</li>
+            <li>You can collapse or expand the question palette using arrows.</li>
+            <li>You can navigate using scroll buttons without scrolling.</li>
+        </ol>
+
+        <p class="font-bold mt-4">Navigating to a Question:</p>
+        <ul class="list-disc pl-6 text-sm space-y-1">
+            <li>Click on the question number to go directly.</li>
+            <li>Click on <b>Save & Next</b> to save your answer.</li>
+            <li>Click on <b>Mark for Review & Next</b> to review later.</li>
+        </ul>
+
+        <p class="font-bold mt-4">Answering a Question:</p>
+        <ul class="list-disc pl-6 text-sm space-y-1">
+            <li>Select an option by clicking on it.</li>
+            <li>Click again to deselect.</li>
+            <li>Use <b>Clear Response</b> to remove answer.</li>
+            <li>You must click <b>Save & Next</b> to save.</li>
+        </ul>
+
+        <p class="font-bold mt-4">Navigating through sections:</p>
+        <ul class="list-disc pl-6 text-sm space-y-1">
+            <li>Sections appear at the top of the screen.</li>
+            <li>You can switch sections anytime.</li>
+            <li>Section summary appears above the question palette.</li>
+            <li>Hover over images to zoom.</li>
+        </ul>
+    </div>
+
+    <!-- Profile section -->
+   <div class="flex-1 border-l-2 border-black flex flex-col items-center pt-10">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+         class="w-24 h-24 mb-3">
+    <h3 class="font-semibold" th:text="${candidateName}">Candidate Name</h3>
+</div>
+
+
+</div>
+
+<!-- Fixed Footer -->
+<div class="fixed bottom-0 left-0 right-0 h-12
+            bg-white border-t border-gray-300
+            flex justify-end items-center pr-5">
+
+    <a href="/instructions2"
+       class="bg-white text-gray-800
+              px-6 py-2
+              border border-gray-400
+              rounded
+              hover:bg-gray-100">
+        Next →
+    </a>
+</div>
+
+</body>
+</html>

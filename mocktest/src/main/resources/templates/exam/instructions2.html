@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Other Important Instructions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white font-sans">
+
+<!-- Top dark blue bar -->
+<div class="h-11 bg-blue-800"></div>
+
+<!-- Light blue title bar -->
+<div class="bg-cyan-200 px-4 py-2 text-lg font-bold border-b border-gray-400">
+    Other Important Instructions
+</div>
+
+<!-- Main layout -->
+<div class="flex h-[calc(100vh-96px)]">
+
+    <!-- Instructions section -->
+    <div class="flex-[3] p-5 overflow-y-auto text-sm leading-relaxed pb-24">
+
+        <div class="text-center font-bold underline mb-4">
+            Important Instructions (Mock Test CBRT)
+        </div>
+
+        <p class="font-semibold mb-4">
+            This is a Mock test. Question Paper displayed is only for the purpose of
+            practice of online exam taking. Under no circumstances should this be
+            presumed as a sample paper.
+        </p>
+
+        <p class="mb-4"><b>Name of the Test:</b> Mock Test</p>
+
+        <ol class="list-decimal pl-6 space-y-2">
+            <li>The candidate should sign in the Nominal Rolls ensuring bio-data correctness.</li>
+            <li>No candidate should leave the examination hall before completion.</li>
+            <li>The Question Paper consists of 150 questions.</li>
+            <li>All 150 questions are MCQs.</li>
+            <li>Each question has 4 options; select one.</li>
+            <li>Each question carries one mark. No negative marking.</li>
+            <li>Total time is 150 minutes (2 hours 30 minutes). Auto-submit on expiry.</li>
+            <li>Questions appear one at a time. Manage time carefully.</li>
+            <li>Use of calculators, phones or electronic gadgets is prohibited.</li>
+            <li>Violation of instructions will lead to cancellation.</li>
+            <li>Only technical queries allowed before test start.</li>
+            <li>Hardware/software issues will be compensated automatically.</li>
+        </ol>
+
+        <!-- Declaration -->
+        <div class="mt-6 flex items-start gap-2">
+            <input type="checkbox" id="agree" class="mt-1">
+            <label for="agree" class="text-xs">
+                I have read and understood the instructions. I declare that I am not carrying
+                any prohibited items. I agree that violation may lead to disqualification
+                and ban from future examinations.
+            </label>
+        </div>
+
+    </div>
+
+    <!-- Profile section -->
+    <div class="flex-1 border-l-2 border-black flex flex-col items-center pt-10">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+         class="w-24 h-24 mb-3">
+    <h3 class="font-semibold" th:text="${candidateName}">Candidate Name</h3>
+</div>
+
+
+</div>
+
+<!-- Fixed Footer -->
+<div class="fixed bottom-0 left-0 right-0 h-12
+            bg-white border-t border-gray-400
+            flex justify-between items-center px-5">
+
+    <!-- Previous -->
+    <a href="/instructions"
+       class="bg-white text-gray-800
+              px-5 py-2
+              border border-gray-400
+              rounded
+              hover:bg-gray-100">
+        ← Previous
+    </a>
+
+    <!-- Ready to Begin -->
+    <a href="/exambegin"
+       class="bg-blue-800 text-white
+              px-6 py-2
+              rounded
+              font-medium
+              hover:bg-sky-600">
+        I am ready to begin
+    </a>
+
+</div>
+
+</body>
+</html>
